@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "version": "1.0.0beta",
+  "description": "",
+  "license": "MIT",
+  "author": "Gvinfinity",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "whatsapp-web.js": "^1.28.0"
+  }
+}
