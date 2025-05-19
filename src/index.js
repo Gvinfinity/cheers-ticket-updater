@@ -28,6 +28,17 @@ const getTicketsSold = async () => {
     }
 }
 
+const sendUpdateMessage = async () => {
+    getTicketsSold()
+        .then(ticketsSold => {
+            client.sendMessage(process.env.WPP_GROUP_ID, 'Número de Ingressos vendidos: ' + ticketsSold);
+            console.log('Número de Ingressos vendidos: ' + ticketsSold);
+        })
+        .catch(error => {
+            console.error('Error fetching tickets sold:', error);
+        });
+}
+
 // Pairing code only needs to be requested once
 let pairingCodeRequested = false;
 
@@ -50,6 +61,7 @@ client.on('auth_failure', msg => {
 
 client.on('ready', () => {
     console.log('Client Ready!');
+    sendUpdateMessage();
 });
 
 client.initialize();
@@ -61,13 +73,6 @@ setInterval(() => {
         return;
     }
 
-    getTicketsSold()
-        .then(ticketsSold => {
-            client.sendMessage(process.env.WPP_GROUP_ID, 'Número de Ingressos vendidos: ' + ticketsSold);
-            console.log('Número de Ingressos vendidos: ' + ticketsSold);
-        })
-        .catch(error => {
-            console.error('Error fetching tickets sold:', error);
-        });
+    sendUpdateMessage();
 }, 43200000); // Check every 12 hours
 
